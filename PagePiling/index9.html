@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<title>全屏滚动插件pagePiling.js演示-绑定菜单_dowebok</title>
+<link rel="stylesheet" href="css/jquery.pagepiling.css">
+<style>
+.section { text-align: center; font: 50px "Microsoft Yahei"; color: #fff;}
+
+#menu { position: fixed; left: 0; top: 0; z-index: 10; margin: 0; padding: 0; font-size: 0; list-style-type: none;}
+#menu li { display: inline-block; margin: 10px 0 0 10px; font: 14px "Microsoft Yahei";}
+#menu a { display: inline-block; padding: 10px; color: #333; text-decoration: none; background-color: #fff; background-color: rgba(255, 255, 255, .5);}
+#menu .active a { color: #fff; background-color: #000; background-color: rgba(0, 0, 0, .5);}
+</style>
+</head>
+
+<body>
+
+<div id="dowebok">
+	<div class="section"><h3>第一屏</h3></div>
+	<div class="section"><h3>第二屏</h3></div>
+	<div class="section"><h3>第三屏</h3></div>
+	<div class="section"><h3>第四屏</h3></div>
+</div>
+
+<ul id="menu">
+	<li data-menuanchor="page1" class="active"><a href="#page1">第一屏</a></li>
+	<li data-menuanchor="page2"><a href="#page2">第二屏</a></li>
+	<li data-menuanchor="page3"><a href="#page3">第三屏</a></li>
+	<li data-menuanchor="page4"><a href="#page4">第四屏</a></li>
+</ul>
+
+<script src="js/jquery-1.8.3.min.js"></script>
+<script src="js/jquery.pagepiling.min.js"></script>
+<script>
+$(function(){
+	$('#dowebok').pagepiling({
+		sectionsColor: ['#00d8cc', '#00c13f', '#ff7d23', '#ff1d77'],
+		anchors: ['page1', 'page2', 'page3', 'page4'],
+		menu: '#menu'
+	});
+});
+</script>
+
+<div style="display: none;">
+	<a href="http://www.dowebo,com/">dowebok</a>
+	<a href="http://www.dowebo,com/150.html">pagePiling.js - jQuery全屏滚动插件</a>
+</div>
+
+</body>
+</html>

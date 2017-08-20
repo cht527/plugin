@@ -1,0 +1,55 @@
+<!--
+首先，两个层的背景图片要是一样的，于是，假设HTML结构如下：
+
+<div class="box">
+    <div id="drag" class="drag"></div>
+</div>
+则，内外两个div背景图：
+
+.box {  
+    background: url(mm1.jpg) no-repeat; 
+}
+.drag { 
+    background: inherit; 
+}
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>test_blur</title>
+	<style>
+	.box { 
+	    width: 240px; height: 300px; 
+	    background: url(./1.jpg) no-repeat; 
+	    position: relative; 
+	    overflow: hidden;
+	}
+	.drag { 
+	    width: 100px; height: 100px;
+	    background: inherit; 
+	    -webkit-filter: blur(5px); -moz-filter: blur(5px); filter: blur(5px); 
+	    cursor: -webkit-grab; cursor: -moz-grab; cursor: grab;
+	    position: absolute; 
+	    overflow: hidden;
+	}
+	.drag:active {
+	    cursor: -webkit-grabbing; cursor: -moz-grabbing; cursor: grabbing;
+	}
+	</style>
+</head>
+<body>
+	<div class="box">
+    <div id="drag" class="drag"></div>
+    <script type="text/javascript" src="./startDrag.js"></script>>
+	<script>
+		var eleDrag = document.getElementById("drag");
+		if (eleDrag) {
+		    startDrag(eleDrag, eleDrag, function(x, y) {
+		        eleDrag.style.backgroundPosition = (-1 * x) + "px " + (-1 * y) + "px";    
+		    });
+		}
+
+	</script>
+</body>
+</html>

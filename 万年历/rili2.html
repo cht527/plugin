@@ -1,0 +1,367 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="Cache-Control" content="no-cache, must-revalidate" />
+<meta http-equiv="expires" content="Wed, 26 Feb 2006 00:00:00 GMT" />
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>万年历-日历查询-星座运程-9991.com</title>
+</head>
+<style> 
+*{margin:0;padding:0}
+p,span,b,input{margin:0;padding:0}
+body{background:#eff8ff;font-size:12px}
+a{color:#155788;text-decoration:none}
+a:hover{color:#f00;text-decoration:underline}
+.content{margin:0 auto;width:940px}
+.left,.right{float:left;height:100%}
+.left{padding:10px 20px;width:525px;height:504px;color:#5b5b5b;background:#fff url(img/wnl.gif) 25px 15px no-repeat;border:#b0d3ee 1px solid}
+.ltop span{display:block;float:right;text-align:right;width:525px;height:30px;line-height:25px;font-size:14px}
+.ltop p{float:left;margin:0;padding:0;text-align:left;font-size:12px;height:30px;line-height:30px}
+.ldays{clear:both;width:525px;text-align:center}
+.ldays td{padding:5px 4px;_padding:3px 4px;height:50px;_height:44px;width:65px}
+.ldays .th{padding:0;height:18px;background:#eff8ff;font:18px "黑体";font-weight:normal;padding:7px 0 4px}
+.ldays td a{display:block;font-size:12px;text-decoration:none;color:#555}
+.ldays td span{display:block;width:100%;height:35px;_height:30px;line-height:35px;_line-height:30px;font:28px Tahoma;font-weight:bold;color:#000;cursor:pointer}
+.ldays td a:hover{background:#cdff3f;text-decoration:none}
+.ldays td a.active{background:#ffdf9c}
+/*IE6下样式*/
+.ldays td a font{font-size:12px;}
+.ldays td span font{font-size:30px;font-weight:bold;}
+/*IE6下样式结束*/
+.lnotice{margin-top:9px;line-height:20px}
+.right{margin-left:13px;width:360px}
+.rtop,.rtime{clear:both;margin-bottom:10px;height:100px;border:#b0d3ee 1px solid}
+.rtime{height:40px}
+.rtime b{font-size:12px;font:Verdana;color:#036ebe}
+.rtop span,.rtime span,.rbottom span{display:block;width:336px;padding:5px 10px;border:#fff 1px solid;background:#fff url(img/bg.gif) top repeat-x;line-height:30px}
+.rtop span{height:88px}
+.rtime span{height:28px}
+.rtop span div,.rtime span div{float:left;_margin-top:10px;height:20px;width:160px}
+.rbottom{clear:both;background:#fff;border:#b0d3ee 1px solid;height:360px}
+.rbottom p{clear:both;line-height:20px}
+p.luck,p.bad,p.ch,p.s{padding-left:28px;color:#616161;background:url(img/yi.gif) 0px 3px no-repeat}
+p.bad,p.ch,p.s{padding-top:7px;background:url(img/ji.gif) 0px 8px no-repeat}
+p.ch{background-image:url(img/chong.gif)}
+p.s{background-image:url(img/sha.gif)}
+p.jr{margin:0;padding:10px 0;text-align:center}
+.fred{color:#ff0000}
+.fgreen{color:#008000}
+.fblue{color:#005aff}
+.center{clear:both;margin:0;width:938px;border:#b0d3ee 1px solid}
+.center td{padding:8px}
+.bgblue{background:#d5ecfd}
+#fd{display:none;position:absolute;border:1px solid #dddddf;background:#feffcd;padding:10px;line-height:21px;width:150px}
+#fd b{font-weight:normal;color:#c60a00}
+.xzys{margin-top:10px;padding:10px;width:918px;border:#b0d3ee 1px solid;background:#fff;font-size:12px}
+.xzys h1{ text-align:center;font-size:16px;color:#036ebe;line-height:30px}
+.xzys b{line-height:25px;color:red}
+.xzys p{line-height:25px}
+</style>
+<script language="javascript" type="text/javascript" src="lunar.js"></script>
+<script language="javascript" type="text/javascript" src="index.js"></script>
+<script language="javascript" type="text/javascript"> 
+</script>
+<body onload="init()">
+<table style="margin:10px auto 0;width:940px;height:20px" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left">&nbsp;当前位置：<a href="/" target="_self">首页</A> &gt; 万年历</td> 
+  </tr>
+</table>
+<!-- content star -->
+<div class="content">
+	<!-- calendar star -->
+    <div class="left">
+        <div class="ltop" id="c_top">
+        	<span>公历&nbsp;<select></select>&nbsp;年&nbsp;<select style="width:40px"></select>&nbsp;月&nbsp;<input type="button" value="<< 年" /><input type="button" value="<< 月" /><input type="button" value="月 >>" /><input type="button" value="年 >>" /><input type="button" value="今日" /></span>
+            <span><p>&nbsp;本机时间：<font color="#036ebe" face="Verdana" id="nowTime">2000年0月0日&nbsp;00:00:00</font></p><font size="2" id="ganzhi"></font></span>
+        </div>
+        <div id="loading" style="clear:both;padding-top:150px;height:242px;text-align:center">程序加载中...</div>
+    	<table border="0" id="cm" cellspacing="0" cellpadding="0" class="ldays">
+        </table>
+		<div id="bm"></div>
+        <div class="lnotice"><b>阳历</b>&nbsp;<font color="#FF0000">红色</font>/<font color="#008000">绿色</font>表示节假日<br />
+        <b>农历</b>&nbsp;<font color="#005aff">蓝色</font>表示为24节气日，<font color="#FF0000">红色</font>表示为传统节日，<font color="#008000">绿色</font>则表示为公众节假日</div>
+    </div>
+	<!-- calendar end -->
+    <div class="right">
+        <div class="rtime">
+       	  <span>
+        	
+        	全球时间：<select onchange="changeWorldClock()" id="worldTime"> 
+        	  <option value="-12" selected="selected">国际换日线</option>
+        	  <option value="-11">萨摩亚</option>
+        	  <option value="-10">夏威夷</option>
+        	  <option value="-9">阿拉斯加</option>
+        	  <option value="-8">太平洋</option>
+        	  <option value="-7">美国山区</option>
+        	  <option value="-7">美加山区</option>
+        	  <option value="-6">加拿大中部</option>
+        	  <option value="-6">墨西哥</option>
+        	  <option value="-6">美加中部</option>
+        	  <option value="-5">南美洲太平洋</option>
+        	  <option value="-5">美加东部</option>
+        	  <option value="-5">美东</option>
+        	  <option value="-4">南美洲西部</option>
+        	  <option value="-4">大西洋</option>
+        	  <option value="-3.3">纽芬兰</option>
+        	  <option value="-3">东南美洲</option>
+        	  <option value="-3">南美洲东部</option>
+        	  <option value="-2">大西洋中部</option>
+        	  <option value="-1">亚速尔</option>
+        	  <option value="0">英国夏令</option>
+        	  <option value="0">格林威治标准</option>
+        	  <option value="1">罗马</option>
+        	  <option value="1">中欧</option>
+        	  <option value="1">西欧</option>
+        	  <option value="2">以色列</option>
+        	  <option value="2">东欧</option>
+        	  <option value="2">埃及</option>
+        	  <option value="2">GFT</option>
+        	  <option value="2">南非</option>
+        	  <option value="3">沙乌地阿拉伯</option>
+        	  <option value="3">俄罗斯</option>
+        	  <option value="3.3">伊朗</option>
+        	  <option value="4">阿拉伯</option>
+        	  <option value="4.3">阿富汗</option>
+        	  <option value="5">西亚</option>
+        	  <option value="5.3">印度</option>
+        	  <option value="6">中亚</option>
+        	  <option value="7">曼谷</option>
+        	  <option value="8" selected="selected">中国</option>
+        	  <option value="9">东京</option>
+        	  <option value="9.3">澳洲中部</option>
+        	  <option value="10">席德尼</option>
+        	  <option value="10">塔斯梅尼亚</option>
+        	  <option value="10">西太平洋</option>
+        	  <option value="11">太平洋中部</option>
+        	  <option value="12">纽西兰</option>
+        	  <option value="12">斐济</option>
+            </select>&nbsp;<b id="worldTimeNow"></b></span></div>
+        <div class="rtop">
+          <span>
+            今日运程：<select id="astro" onchange="changeAstro()">
+            			<option value="0" selected="selected">白羊座 03月21日-04月19日</option>
+            			<option value="1">金牛座 04月20日-05月20日</option>
+            			<option value="2">双子座 05月21日-06月21日</option>
+            			<option value="3">巨蟹座 06月22日-07月22日</option>
+            			<option value="4">狮子座 07月23日-08月22日</option>
+            			<option value="5">处女座 08月23日-09月22日</option>
+            			<option value="6">天秤座 09月23日-10月23日</option>
+            			<option value="7">天蝎座 10月24日-11月22日</option>
+            			<option value="8">射手座 11月23日-12月21日</option>
+            			<option value="9">摩羯座 12月22日-01月19日</option>
+            			<option value="10">水瓶座 01月20日-02月18日</option>
+            			<option value="11">双鱼座 02月19日-03月20日</option>
+                      </select>&nbsp;<a id="astroUrl" href="http://astro.sina.com.cn/pc/west/frame0_0.html" target="_blank">查看详情&gt;&gt;</a><br />
+        	<div id="astro_z">综合运势：<img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /></div>
+            <div id="astro_a">爱情运势：<img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /><img src="img/star0.gif" /></div>
+            <br />
+            一周运势：<a href="#yzys" style="text-decoration:underline">闹闹女巫店一周星座运势1104-1110</a>
+          </span></div>
+        <div class="rbottom">
+        	<span>
+            	<p style="font-size:14px;line-height:30px" id="date">今 天 是：<font class="fred"><b>2009年6月9日&nbsp;星期二</b></font><br />
+                <p id="lunar_info"></p>
+            	<p style="line-height:26px">历史上的今天：</p>
+        		<p style="padding-left:4px;height:60px;overflow:hidden" id="hisToday"></p>
+	        	<p style="text-align:right"><a target="_blank" href="http://www.2345.com/tools/his.htm">点击查看更多&gt;&gt;</a></p>
+        <hr style="margin:10px auto 0;width:96%;height:1px;border-top:#e1f1fe 1px solid" />
+        	<p style="padding:5px 0;line-height:25px" id="lm_txt">今日黄历：</p>
+            <p class="luck" id="luck">程序载入中...</p>
+			<p class="bad" id="bad"></p>
+			<p class="ch" id="ch"></p>
+			<p class="s" id="s"></p>
+        	</span>
+        </div>
+    </div>
+    <div style="clear:both;height:10px"></div>
+	<!-- more star -->
+<div class="center">
+        <div style="background:#fff;" id="range">
+			<p class="jr"><b>吉日查询：</b>从&nbsp;
+            <select id="s_year" onchange="changeMonthDay(0)">
+                <option value="2008">2008</option>
+                <option value="2009" selected="selected">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+            </select>&nbsp;年&nbsp;
+            <select id="s_month" onchange="changeMonthDay(0)">
+           		 <option value="1">1</option>
+           		 <option value="2">2</option>
+           		 <option value="3">3</option>
+           		 <option value="4">4</option>
+           		 <option value="5">5</option>
+           		 <option value="6">6</option>
+           		 <option value="7">7</option>
+           		 <option value="8">8</option>
+           		 <option value="9">9</option>
+           		 <option value="10">10</option>
+           		 <option value="11">11</option>
+           		 <option value="12">12</option>
+            </select>&nbsp;月&nbsp;
+            <select id="s_day">
+            	 <option value="1">1</option>
+            </select>&nbsp;日&nbsp;至&nbsp;
+            <select id="e_year" onchange="changeMonthDay(1)">
+                <option value="2008">2008</option>
+                <option value="2009" selected="selected">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+            </select>&nbsp;年&nbsp;
+            <select id="e_month" onchange="changeMonthDay(1)">
+           		 <option value="1">1</option>
+           		 <option value="2">2</option>
+           		 <option value="3">3</option>
+           		 <option value="4">4</option>
+           		 <option value="5">5</option>
+           		 <option value="6">6</option>
+           		 <option value="7">7</option>
+           		 <option value="8">8</option>
+           		 <option value="9">9</option>
+           		 <option value="10">10</option>
+           		 <option value="11">11</option>
+           		 <option value="12">12</option>
+            </select>&nbsp;月&nbsp;
+            <select id="e_day">
+            	 <option value="1">1</option>
+            </select>&nbsp;日&nbsp;
+            * 查询范围在三个月内
+            <input type="radio" name="lmanacType" id="lmanacLuck" checked="checked" />宜
+            <input name="lmanacType" type="radio" />忌&nbsp;&nbsp;
+            <select id="lmanacCond">
+                <option value="全部">全部</option>
+                <option value="嫁娶" selected="selected">嫁娶</option>
+                <option value="祭祀">祭祀</option>
+                <option value="动土">动土</option>
+                <option value="开市">开市</option>
+                <option value="开光">开光</option>
+                <option value="祈福">祈福</option>
+                <option value="求嗣">求嗣</option>
+                <option value="出行">出行</option>
+                <option value="迁徙">迁徙</option>
+                <option value="安床">安床</option>
+                <option value="拆卸">拆卸</option>
+                <option value="修造">修造</option>
+                <option value="安门">安门</option>
+                <option value="挂匾">挂匾</option>
+                <option value="纳财">纳财</option>
+                <option value="扫舍">扫舍</option>
+            </select>&nbsp;<input type="button" id="query" onclick="getLmanac()" style="width:70px" value="查&nbsp;&nbsp;询" /></p>
+            <a name="anchor_lmanac" id="anchor_lmanac"></a>
+        	</div>
+<script type="text/javascript">if(typeof(setClock)!="undefined"&&typeof(changeMonthDay)!="undefined"){setClock();changeMonthDay(0);changeMonthDay(1);}</script>
+    </div>
+	<script type="text/javascript">if(typeof(setClock)!="undefined"){setClock();}</script>
+	<!-- more end -->
+<!-- content end -->
+<div class="xzys">
+  <h1><a name="yzys"></a>闹闹女巫店12星座一周运势1104-1110</h1>
+    <p>作者：nownow　周刊专栏，转载请注明原始出处：<a href="http://nownow.blogbus.com/" target="_blank">http://nownow.blogbus.com/</a></p>
+	<p><br />
+    <font color="red">前三名戴小红花：</font></p>
+    <br />
+    <p><font color="red">白羊座：惊喜不断的一周</font></p>
+    <br>
+    <p><font color="red">金牛座：事业稳定的一周</font></p>
+    <br />
+    <p><font color="red">双子座：运势全面回稳定的一周</font></p>
+    <br />
+    <p><br />
+    后三名划小黑叉：</p><br />
+    <p>天秤座：不太稳定、上下跌宕</p>
+    <br />
+    <p>水瓶座：心气高、行动差</p>
+    <br />
+    <p>双鱼座：顾此失彼</p>
+<br />
+      <b><br />
+      <br />
+      白羊座 Aries 21/3- 20/4</b><br />
+      <br />
+    </p>
+    <p>事业机会犹如雨后春笋的一周。尘埃落定、惊喜连连。本周的白羊座，在事业上面可以说得上是豁然开朗，此前相当计较的事业机会缺失，或者希望不明朗的壮阔得到极大改善，心情转好，运势平稳上升，是近期难得的收获期。宜在自身专业领域多加钻研，将有代表作在此时出现，并获得意料之外的肯定。身体状况须注意平时保养，定期咨询专家意见。财务稳定，很殷实的一段生活。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是凄凄暧暧。<br />
+    </p>
+    <b><br />
+    <br />
+    金牛座 Taurus 20/4- 20/5</b><br /><br /><br />
+    <p>金牛座上演深秋的故事的一周。街角邂逅、飞来横幅。本周金牛座过得相当有故事性，情节桥段都不缺，或是邂逅新鲜人、或是他乡遇故知，总之很有些意味。事业仍不宜高调主动出击，低调运作为上上之策，切记与中坚力量结盟，避免让自己独自处于风口浪尖<span lang="EN-US" xml:lang="EN-US">,</span>，运筹帷幄是阶段性的重要课题，切勿轻敌。则大权在握<span lang="EN-US" xml:lang="EN-US">.</span>财务身体安康。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是时间快转。</p>
+    <p><b><br />
+      <br />
+    双子座 Gemini 21/5- 20/6</b><br />
+    <br />
+    </p>
+    <p>双子座一改之前的颓势，重回焦点的一周。台前聚焦、出类拔萃。本周双子座重新站上舞台，成为焦点人物，伴随而来的，是更巨大的责任和考验。前一段时期仿佛度日如年的阴霾，本周一扫而光、事业以反应快见长。随着能见度和知名度的增加，行事更为稳健，具备领导人物的潜质。大环境的阻碍依旧存在，需要强烈的意志力浴血奋战。财务数字稳定上升，进出平衡。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是云中谁寄锦书来。</p>
+    <p><br />
+    </p>
+    <b><br />
+    巨蟹座 Cancer 21/6- 22/7</b><br /><br /><br />
+    <p>巨蟹座运势也在稳定与踏实的一周。眼光独到，笑傲江湖。这段时间的工作犹如如鱼得水，周遭人的配合也非常得力，生活中朋友也慢慢变成事业支持者，总之处于风生水起的状态中。有人从末默默无闻一战成名，有人在激烈的竞争中大获全胜，策略计划文思泉涌，想象与执行配合无间，从事创意事业者有机会成为行业里的领航人物。曝光率大增，有添购新行头的需求， 所幸财务进帐丰厚。身体有些小波动。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是期待中的旅行。<br />
+    </p>
+    <p align="left"><b><br />
+      <br />
+      狮子座 Leo 23/7- 22/8</b><br />
+      <br />
+    </p>
+    <p>狮子座赢在心态的一周。从容不迫、无欲则刚。狮子座本周确确实实是展现了大气，并且赢在对待周遭人与人事物的心态。除了长期积累的工作能力，个人魅力的充分发挥，也对此时此刻的事业形势起了非常关键的作用。事业面临无数新的机会，须全神贯注细辨真伪，以免付出无谓的代价，懂得与人为善，积累人脉是相当重要的成长，也许抵过万贯家财。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是一起看电影的快乐。<br />
+    </p>
+    <p>&nbsp;</p>
+    <b><br />
+    处女座 Virgo 23/8- 22/9</b><br /><br /><br />
+    <p>处女座重新定位自己的一周。无为而治、意识先行。处女座在过去将近一年的时间里，有了很长足的成长，事实上很多处女座身边人都会感叹这一段时间里，他们长大了、成熟了、理性了。而最近开始持续三到四周的时间，则是这些成长集中体现的一段日子。理性而辩证的看待工作与生活中的变化，重新定位朋友，为即将到来的新的工作与生活旅程扫清道路，分数很高的一段日子。容易感冒，小心爱护自己。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是赢在明天。<br />
+      <b><br />
+      <br />
+    天秤座 Libra 23/9- 22/10</b></p>
+    <p><br />
+    </p>
+    <p>天秤座状态低迷的一周。功过是非、孤军奋战。天秤确实停在了不怎么开心，事情繁多、前景不明朗的一周，不过此段时间的天秤却是让我有些钦佩的，即使状态低迷，他们却依然可以看清楚真实情境下的功过是非，给出理性的判断，并且一个人继续坚持向前走，而不是停在原地让自己明哲保身，从这意义上说，对于身处风波的天秤，也许应该多给一点掌声。财务一般，身体焦虑。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是儿时的万花筒。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p align="left"><b><br />
+      <br />
+    天蝎座 Scorpio 23/10- 21/11</b></p>
+    <p><br />
+    </p>
+    <p>天蝎座迎来脚踏实地，顺风顺水工作的一周。进度颇佳、亦步亦趋。本来运气就不错的天蝎座们，本周开始进入运势的稳定期，朝九晚五凤平浪静团体工作气氛佳，不在孤军奋战，有利于为未来的挑战组织新团队，创意四射，思路清晰，佳作频传。财运佳，正财偏财都有实质的回馈，与付出成正比；身体状况有隐忧需提防。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是长线持有的绩优股。</p>
+    <p><b><br />
+      <br />
+    射手座 Sagittarius 22/11- 21/12</b></p>
+    <p><br />
+    </p>
+    <p>射手座尚未回到稳定状态的一周。险中求胜，无所畏惧。一向剑及履及的事业顺境在大环境的影响之下，处于山雨欲来风满楼的危机里，四面楚歌。必需居安思危，时刻提醒自己做好万全的准备，才能在关键时克力挽狂澜。预定的计划与行程容易临时生变，并有意外的损失。财运入不敷出，需小心行事。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是灯火阑珊处的期待。</p>
+    <p align="left"><b><br />
+      <br />
+    摩羯座 Capricorn 22/12- 19/1</b></p>
+    <p align="left"><br />
+    </p>
+    <p>摩羯座长足经营的一周。祸福交替、冷静雍容。摩羯座每每在这样的大事件当中，总是可以展现出过人的理性。即将在这段时间摆脱层层包袱<span lang="EN-US" xml:lang="EN-US">,</span>彻底结束阶段性任务，重获新契机，因祸得福。大势虽馄饨未明，但依赖长久经营的人脉与专业能力，事业颇有起色，需减少在忧虑上的时间投资，本周爱情运势相当不错，有在危机公关处理的当下迷倒众人的机会，也有在不经意之间电到异性或同性的很大可能，总之敬请把握。本周财务令人羡慕，大小幅进账与新机会都有，身体一般，有的人会咳嗽。</p>
+    <p><b><br />
+      <br />
+    水瓶座 Aquarius 20/1- 18/2</b></p>
+    <p><br />
+    </p>
+    <p>水瓶座没能让自己的变化或努力达到要求的一周。华丽蜕变，欲速不达。此前水瓶座集中所有心力向着某个方向全力开火，但大举进攻过后，似乎效果不佳，本周再次进入沉淀时间，但接在后面的其实是更大的风雨，一切都还再变化之中，无论爱情事业都没有定数，是需要大智慧与忍耐力的一周。身体走低，随时可能病倒；财务普通，可能会错过最好的投资时机。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是紫光灯，会亮，却无法用来照明。</p>
+    <p><b><br />
+      <br />
+    双鱼座 Pisces 19/2- 20/3</b></p>
+    <p><br />
+    </p>
+    <p>双鱼进入身心疲惫的一周，精神透支、选择不明。本周的双鱼其实并不是事业没有选择的惨淡经营，事实上他们拥有若干新的可能性，而他们的痛苦，正在于此，似乎双鱼们迷失在云里雾里的事业选择中，在不利的大势与周边环境中，他们始终在摇摆，不知道向东还是向西，选上还是选下，一切就这样持续着，让人心烦意乱。唯有寄希望于接下来的时间，事件可以趋于明朗化了。身体因思虑多而不稳定，财务不错，收入让人羡慕。<span lang="EN-US" xml:lang="EN-US"></span></p>
+    <p>爱情是摆脱包袱就会爆发的小宇宙。</p>
+    <p align="left">&nbsp;</p>
+    </p>
+  </div>
+</div>
+<script type="text/javascript" src="/css/foot.js"></script>
+</body>
+</html>
+

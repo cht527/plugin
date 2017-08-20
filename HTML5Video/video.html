@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset=utf-8 /> 
+		<title>Adobe Developer Center: HTML5 Video Sample</title>
+		<!--[if lt IE 9]><script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+		<link rel="stylesheet" href="playr.css" />
+		<style>
+			figcaption { font-weight:bold; }
+			small { display:block; }
+		</style>
+		<script src="playr.js"></script>
+	</head>
+	<body>
+		<figure>
+			<figcaption>MP4 Video</figcaption>
+			<video src="myVideo.mp4" autoplay controls></video>
+		</figure>
+		<figure>
+			<figcaption>MP4 and WebM Video</figcaption>
+			<video autoplay controls>
+				<source src="myVideo.mp4" type="video/mp4">
+				<source src="myVideo.webm" type="video/webm">
+			</video>
+		</figure>
+		<figure>
+			<figcaption>MP4 and WebM Video with poster image</figcaption>
+			<video controls poster="myVideoPoster.gif">
+				<source src="myVideo.mp4" type="video/mp4">
+				<source src="myVideo.webm" type="video/webm">
+			</video>
+		</figure>
+		<figure>
+			<figcaption>MP4 and WebM Video with Flash and Download Link Fallback</figcaption>
+			<video autoplay controls>
+				<source src="myVideo.mp4" type="video/mp4">
+				<source src="myVideo.webm" type="video/webm">
+				<object type="application/x-shockwave-flash" data="player.swf?videoUrl=myVideo.mp4&autoPlay=true">
+					<param name="movie" value="player.swf?videoUrl=mVideo.mp4&autoPlay=true">
+				</object>
+				<a href="myVideo.mp4">Download the video</a>
+			</video>
+		</figure>
+		<figure>
+			<figcaption>Subtitles Example (WebM ONLY!) using <a href="http://www.delphiki.com/html5/playr/">Playr</a></figcaption>
+			<video class="playr_video" autoplay controls>
+				<source src="eDream.webm" type="video/webm">
+				<track src="english-subtitles.vtt" kind="subtitles" srclang="en" label="English subtitles">
+			</video>
+			<small>&copy; copyright 2006, Blender Foundation / Netherlands Media Art Institute /<br/> <a href="http://www.elephantsdream.org">www.elephantsdream.org</a></small>
+		</figure>
+	</body>
+</html>

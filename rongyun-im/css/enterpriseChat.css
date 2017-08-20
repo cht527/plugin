@@ -1,0 +1,230 @@
+.addressBook-main{
+    width: 256px;
+    height: 508px;
+    float: right;
+    background: white;
+    border: 1px solid darkgray;
+}
+.colleague{
+    width: 100%;
+}
+.colleagueTitle, .disscussionGroupTitle{
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding-left: 10px;
+    border-bottom: 1px solid #F0F0F0;
+    background-color: #F6F5F5;
+}
+.colleagueResult{
+    width: 100%;
+}
+.colleagueResult ul{
+    margin: 0px;
+    padding: 0px;
+}
+
+.colleagueResult li{
+    height: 40px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #ECE7EA;
+    list-style: none;
+}
+.searchResultArea{
+    display: none;
+    position: absolute;
+    width: 256px;
+    height: 448px;
+    background: white;
+    z-index: 1;
+    top: 50px;
+}
+.voidResult{
+    display: none;
+    text-align: center;
+    padding: 10px;
+}
+.aboveArea{
+    height: 90px;
+    width: 100%;
+    background-color: #2fa3f4;
+    padding-top: 10px;
+    position: relative;
+}
+.searchArea{
+    width: 240px;
+    height: 32px;
+    border-radius: 20px;
+    margin: 0 auto;
+    background-color: white;
+    position: relative;
+}
+.search-icon{
+    width: 35px;
+    height: 32px;
+    background: url("../images/enterpriseChat/search-icon.png") no-repeat center center;
+    position: absolute;
+}
+.searchArea input{
+    height: 30px;
+    position: absolute;
+    left: 35px;
+    border: 0px;
+    width: 170px;
+    outline: none;
+}
+.searchRecentInput{
+    height: 30px;
+    position: absolute;
+    left: 35px;
+    border: 0px;
+    width: 170px;
+    outline: none;
+    display: none;
+}
+.search-close{
+    width: 25px;
+    height: 32px;
+    left: 205px;
+    background: url("../images/enterpriseChat/search-close.png") no-repeat center center;
+    position: absolute;
+}
+.peopelList{
+    width: 100%;
+    height: 36px;
+    position: absolute;
+    bottom: 0px;
+}
+.message1{
+    width: 127px;
+    height: 36px;
+    background: url("../images/enterpriseChat/message1-icon.png") no-repeat center center;
+    float: left;
+}
+.message2{
+    width: 127px;
+    height: 36px;
+    background: url("../images/enterpriseChat/message2-icon.png") no-repeat center center;
+    float: left;
+}
+.people1{
+    width: 127px;
+    height: 36px;
+    background: url("../images/enterpriseChat/people1-icon.png") no-repeat center center;
+    float: right;
+}
+.people2{
+    width: 127px;
+    height: 36px;
+    background: url("../images/enterpriseChat/people2-icon.png") no-repeat center center;
+    float: right;
+}
+
+.underArea{
+    width: 256px;
+}
+.recentContacts{
+    display: none;
+    height: 359px;
+    width: 100%;
+}
+.addressBookList{
+    display: block;
+    height: 359px;
+    width: 100%;
+}
+.addressBookList-tab{
+    height: 38px;
+    border-bottom: 1px solid #ECE7EA;
+    padding-left: 10px;
+    font-size: 12px;
+}
+.peopleTab{
+    width: 40px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+.orgTab{
+    width: 40px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+}
+.activeTab{
+    border-bottom: 2px solid #5B87A0;
+}
+.addressBookList-items{
+    display: block;
+    width: 100%;
+    height: 319px;
+    overflow-y: auto;
+}
+.addressBookList-items ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.addressBookList-items li{
+    height: 40px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #ECE7EA;
+}
+.headPortrait{
+    width: 35px;
+    height: 35px;
+    display: inline-block;
+}
+.headPortrait img{
+    width: 100%;
+}
+.itemInfo{
+    width: 140px;
+    height: 30px;
+    display: inline-block;
+    margin-left: 10px;
+    vertical-align: top;
+    line-height: 15px;
+    cursor: pointer; ;
+}
+.peopleOrg{
+    color: gray;
+    line-height: 25px;
+    width: 170px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.addressBookList-orgs{
+    display: none;
+    width: 100%;
+    height: 319px;
+}
+
+
+
+#conversationRecord{
+    width: 70px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+}
+.createDiscussion{
+    width: 40px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    left: 115px;
+    font-size: 1.8em;
+    color: #2FA3F4;
+    text-decoration:none
+}

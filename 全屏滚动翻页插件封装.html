@@ -1,0 +1,174 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>全屏滚动翻页插件</title>
+<style>
+
+#page1{
+	background-color: blue
+}
+#page2{
+	background-color: red
+}
+#page3{
+	background-color: yellow
+}
+#page4{
+	background-color: #aaa;
+}
+#page5{
+	background-color: #eee;
+}
+
+.page{
+	top: 0;
+	left: 0;
+	width: 100%;
+	min-height: 99%;
+	position: absolute;
+	display: none;
+	border: 0;
+	-webkit-transition: all 1s ease-out; /* Safari<=6 Android<=4.3 */
+    transition: all 1s ease-out;
+
+}
+.active{
+	display: block;
+	overflow: visible;
+	overflow-x: hidden;
+}
+ul{
+	position: absolute;
+	top: 45%;
+	right: 20px;
+}
+ul li{
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	border: 1px solid #000;
+	list-style: none;
+	text-align: center;
+	margin-bottom: 5px;
+	cursor: pointer;
+}
+.current{
+   background-color: #aaa;
+}
+
+</style>
+</head>
+<body>
+
+
+<div>
+	<div id="page1" class="page active"></div>
+  	<div id="page2" class="page "></div>
+  	<div id="page3" class="page "></div>
+  	<div id="page4" class="page "></div>
+  	<div id="page5" class="page "></div>
+</div>
+  
+<ul class="nav-switch">
+  <li class="current"></li>
+  <li></li>
+  <li></li>
+  <li></li>
+  <li></li>
+</ul>
+  
+<script type="text/javascript" src="./js/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript">
+var pageObj={
+	"firstPage":$('.page:first-child'), //第一页
+	"lastPage":$('.page:last-child'), //最后一页
+	"pageSize":$('.page').length,//页面数目
+	"navEle":$('.nav-switch li'), // 导航切换区域元素
+	"navEle_first":$('.nav-switch li:first-child'), // 导航切换区域 第一个元素
+	"navEle_last":$('.nav-switch li:last-child'), // 导航切换区域 最后一个元素
+};
+
+//-----监听点击 事件 
+pageObj.navEle.on('click',function(e) {
+	e.preventDefault();
+	var clickIndex=$(this).index();
+	var currentPage=$('.active'),curentIndex=currentPage.index();
+
+	if (clickIndex==curentIndex) { // 当前页面和要跳转的页面相同
+		return false
+	}else{ 
+		var targetPage=$('.page').eq(clickIndex); // 要跳转的页面
+		var targeNav=$('ul li').eq(clickIndex); // 要跳转的 导航
+		clickSwitchPage(targetPage,targeNav);
+	}
+		
+})
+
+
+//----- 点击导航 -- 页面 切换 & 导航切换   
+function clickSwitchPage(targetPage,targeNav){
+	targetPage.addClass('active').siblings().removeClass('active');
+	targeNav.addClass('current').siblings().removeClass('current');
+}
+/**
+		* Adds the auto scrolling action for the mouse wheel and trackpad.
+		* After this function is called, the mousewheel and trackpad movements will scroll through sections
+*/
+//----- 滚轮事件监听
+function addMouseWheelHandler(){
+	if (document.addEventListener) {
+		document.addEventListener("mousewheel", MouseWheelHandler, false); //IE9, Chrome, Safari, Oper
+		document.addEventListener("wheel", MouseWheelHandler, false); //Firefox
+	} else {
+		document.attachEvent("onmousewheel", MouseWheelHandler); //IE 6/7/8
+	}
+}
+//----- 滚动事件处理 -- 页面 切换 & 导航切换 
+function scrolling(direction,currentPage,curentIndex){
+	if (direction=='down') {
+		if(curentIndex==pageObj.pageSize-1){
+			pageObj.firstPage.addClass('active').siblings().removeClass('active');
+			pageObj.navEle_first.addClass('current').siblings().removeClass('current');
+		}else{
+			currentPage.next().addClass('active').siblings().removeClass('active');
+			pageObj.navEle.eq(curentIndex+1).addClass('current').siblings().removeClass('current');
+		}
+		
+	}else{
+		if (curentIndex==0) {
+			pageObj.lastPage.addClass('active').siblings().removeClass('active');
+			pageObj.navEle_last.addClass('current').siblings().removeClass('current');
+
+		}else{
+			currentPage.prev().addClass('active').siblings().removeClass('active');
+			pageObj.navEle.eq(curentIndex-1).addClass('current').siblings().removeClass('current');
+		}
+		
+	}
+}
+//----滚动事件 判断方向 触发
+function MouseWheelHandler(e) {
+	// cross-browser wheel delta
+	e = window.event || e;
+	var delta = Math.max(-1, Math.min(1,
+	(e.wheelDelta || -e.deltaY || -e.detail)));
+
+				
+	var currentPage=$('.active'),curentIndex=currentPage.index();
+				
+	//scrolling down?
+	if (delta < 0) {
+		scrolling('down',currentPage,curentIndex);
+		//scrolling up?
+	}else {
+		scrolling('up',currentPage,curentIndex);
+	}
+}
+
+addMouseWheelHandler();
+</script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>企业通</title>
+    <link rel="stylesheet" type="text/css" href="/mts/main/css/enterpriseChat.css" />
+    <link rel="stylesheet" type="text/css" href="/mts/main/css/RongIMWidget.css"/>
+    <link rel="stylesheet" type="text/css" href="IM_vendor/jqueryrebox/jquery-rebox-0.1.0.css"/>
+    <link rel="stylesheet" type="text/css" href="/mts/main/css/ctsi-im-ztree.css" />
+    <link rel="stylesheet" type="text/css" href="/mts/main/css/zTreeStyle.css" />
+    <link rel="stylesheet" type="text/css" href="/mts/main/css/ctsi-im-web.css" />
+
+    <!-- MODERNIZR -->
+    <script type="text/javascript" src="/mts/main/js/realTimeSearch/vendor/modernizr.custom.js"></script>
+
+    <script src="http://cdn.ronghub.com/RongIMLib-2.2.5.min.js"></script>
+    <script src="//cdn.ronghub.com/RongEmoji-2.2.5.min.js"></script>
+    <script src="//cdn.ronghub.com/RongIMVoice-2.2.4.min.js"></script>
+    <!--<script src="/mts/main/js/jquery-1.7.2.min.js"></script>-->
+    <script type="text/javascript" src="/mts/main/js/jquery-2.2.2.js"></script>
+    <script type="text/javascript" src="/mts/main/js/jquery.ztree.core.js"></script>
+
+    <style type="text/css">
+        .ztree * {font-size: 12px;font-family:"Microsoft Yahei"}
+        .ztree li ul{ margin:0; padding:0 0 0 10px}
+        .ztree li {line-height:30px;}
+        .ztree li a {width:246px;height:30px;padding-top: 0px;}
+        .ztree li a:hover {text-decoration:none;}
+        .ztree li a span.button.switch {visibility:visible}
+        .ztree.showIcon li a span.button.switch {visibility:visible}
+        .ztree li a.curSelectedNode {background-color: white;border:0;height:30px;}
+        .ztree li span {line-height:30px;}
+        .ztree li span.button {margin-top: -3px; width: 0px;}
+        .ztree li span.button.switch {width: 16px;height: 16px;}
+
+        .ztree li a.level0 span {}
+        .ztree li span.button {background-image:url("images/enterpriseChat/orgIcon.png");}
+        .ztree li span.button.noline_open {background-position: -15px 3px;}
+        .ztree li span.button.noline_close {background-position: 0px 2px;}
+
+        .ztree li span.button.icon{ height: 40px;}
+        .ztree li span.button.ico_docu{margin-right: 5px; width: 16px; vertical-align: middle;}
+    </style>
+
+</head>
+<body>
+<!--聊天窗口-->
+<div id="im_conversation" class="im-conversation">
+    <div class="rongcloud-kefuChat">
+        <div id="header" class="rongcloud-rong-header rongcloud-blueBg rongcloud-online">
+            <div class="rongcloud-infoBar rongcloud-pull-left" style="line-height: 33px;">
+                <div class="rongcloud-infoBarTit" style="display: flex;align-items:center">
+                    <img class="im-conversation-iconUrl" id="im_conversation_iconUrl"  src="" alt="">
+                    <span class="rongcloud-kefuName ng-binding" id="im_conversation_name"></span>
+                </div>
+            </div>
+            <div class="rongcloud-toolBar rongcloud-headBtn rongcloud-pull-right">
+                <a href="javascript:void(0);" class="rongcloud-kefuChatBoxClose rongcloud-sprite" onclick="closeConversation()" title="结束对话">
+                </a>
+            </div>
+        </div>
+
+        <div id="Messages" style="padding: 0px">
+            <span  id="conv_moreHistoryText" class="conversation-moreHistoryText" style="display:none">查看更多消息</span>
+            <div class="rongcloud-MessagesInner" id="im-MessagesContainer">
+
+            </div>
+        </div>
+        <div id="footer" class="rongcloud-rong-footer" style="display: block">
+            <div class="rongcloud-footer-con">
+                <div class="rongcloud-text-layout">
+                    <div id="funcPanel" class="rongcloud-funcPanel rongcloud-robotMode">
+                        <div class="rongcloud-mode1">
+                            <div class="rongcloud-MessageForm-tool" id="expressionWrap">
+                                <i class="rongcloud-sprite rongcloud-iconfont-smile" onclick="showemoji()"></i>
+                                <div class="rongcloud-expressionWrap ng-hide" id="showemoji-container" style="display: none;">
+                                    <i class="rongcloud-arrow"></i>
+                                </div>
+                            </div>
+                            <div class="rongcloud-MessageForm-tool">
+                               <!-- <i class="rongcloud-sprite rongcloud-iconfont-upload" id="upload-file" onclick="document.getElementById('myfile').click();" style="position: relative; z-index: 1">
+
+                                </i>
+                                <input type="file" id="myfile" onchange="document.getElementById('im-inputMsg').value=this.value" style="display:none">-->
+                            </div>
+                        </div>
+
+                        <div id="html5_1b8vsdosqsv512jq1oel1v601vhjb_container" class="moxie-shim moxie-shim-html5" style="position: absolute; top: 0px; left: 28px; width: 24px; height: 20px; overflow: hidden; z-index: 0;">
+                            <input id="html5_1b8vsdosqsv512jq1oel1v601vhjb" type="file" style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;" accept="image/jpeg,image/gif,image/png,image/bmp">
+                        </div>
+                    </div>
+                    <pre id="im-inputMsg" class="rongcloud-text rongcloud-grey ng-pristine ng-untouched ng-valid ng-isolate-scope" contenteditable="" contenteditable-dire=""  style="color: rgb(169, 169, 169); background-color: rgba(0, 0, 0, 0);"  placeholder="请输入文字..." ondrop="return false"></pre>
+                </div>
+
+                <div class="rongcloud-powBox">
+                    <button type="button" style="background-color: #0099ff;top: 50px" class="rongcloud-rong-btn rongcloud-rong-send-btn" id="rong-sendBtn" onclick="send()">发送</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--聊天窗口--end-->
+
+<!-- 主面板 -->
+    <div class="addressBook-main">
+        <div class="aboveArea">
+            <div id="searchArea" class="searchArea">
+                <div id="searchIcon" class="search-icon"></div>
+                <input type="text" id="searchInput" name="searchInput" class="searchInput" placeholder="搜索人员..." data-list=".colleagueList" autocomplete="on" />
+                <input type="text" id="searchRecentInput" name="searchRecentInput" class="searchRecentInput" placeholder="搜索最近联系人..." data-list=".recentList" autocomplete="on" />
+                <div id="closeSearch" class="search-close"></div>
+            </div>
+            <div class="peopelList">
+                <div class="message2" id="message"></div>
+                <div class="people1" id="people"></div>
+            </div>
+        </div>
+        <div class="underArea">
+            <div class="recentContacts" id="recentContacts">
+                <div class="addressBookList-tab" id="recentConversation_tab">
+                    <span class="conversationRecord" id="conversationRecord">会话记录</span>
+<!--
+                    <a class="createDiscussion" id="createDiscussion" data-reveal-id="conversationModal">+</a>
+-->
+                </div>
+                <div class="recentList-items" id="recentListItems">
+                    <ul class="recentList"></ul>
+                </div>
+            </div>
+            <div class="addressBookList" id="addressBookList">
+                <div class="addressBookList-tab">
+                    <span class="peopleTab activeTab" id="peopleTab">同事</span>
+                    <span class="peopleTab" id="orgTab">部门</span>
+                </div>
+                <div class="addressBookList-items" id="addressBookListItems">
+                    <ul class="colleagueList"></ul>
+                </div>
+                <div class="addressBookList-orgs" id="addressBookListOrgs">
+                    <ul id="treeDemo" class="ztree"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<!-- 主面板  end-->
+
+<!--  创建 讨论组 弹窗-->
+<div id="conversationModal" class="reveal-modal medium">
+    <div class="conversation_modalHeader">
+        <span class="conversation_modalTitle" style="margin-left: 6px">创建同事会话</span>
+        <a id="close-reveal-modal" class="close-reveal-modal" style="top: 12px;text-decoration:none">&#215;</a>
+    </div>
+    <hr style="margin: 0 auto;color: #E1E1E1;" />
+
+    <div class="conversation-addressBookList-tab">
+        <span class="conversation-peopleTab conversation-activeTab" id="conversation_peopleTab">同事</span>
+        <span class="conversation-peopleTab" id="conversation_orgTab">部门</span>
+    </div>
+    <div class="conversation-searchArea" id="conversation_search">
+        <input type="text" placeholder="直接搜索成员" />
+    </div>
+    <div class="conversation-addressBookList-items" id="conversation_addressBookListItems">
+        <ul></ul>
+    </div>
+    <div class="conversation-addressBookList-orgs" id="conversation_addressBookListOrgs">
+    </div>
+
+    <div class="conversation-selected">
+        <div class="conversation-selected-header">
+            <span class="selected-text">已选成员</span>
+            <span class="selected-container">
+                 <span id="selected_num"></span>
+                <span class="">人</span>
+            </span>
+
+        </div>
+        <div class="conversation-selected-edit" id="conversation_selected_edit">
+
+        </div>
+
+    </div>
+
+    <p class="conversation-buttonList">
+        <button class="conversation-confirm" id="conversation_confirm">确&nbsp;定</button>
+        <button class="conversation-cancel"  id="conversation_cancel">取&nbsp;消</button>
+    </p>
+
+</div>
+<!--  创建 讨论组 弹窗--end-->
+
+<!--  appkey 配置文件 -->
+<script type="text/javascript" src="/mts/main/js/config_html.js"></script>
+<!--  融云 相关初始化  appkey初始化、获取token，设置监听，连接融云服务器 -->
+<script type="text/javascript" src="/mts/main/js/ctsi-im-init.js"></script>
+
+<script type="text/javascript" src="/mts/main/js/ctsi-im-web.js"></script>
+<!--<script type="text/javascript" src="/mts/main/js/ctsi-im-orgTree.js"></script>-->
+
+<!--<script type="text/javascript" src="/mts/main/js/reveal_box.js"></script>-->
+
+<!-- JQuery -->
+<!--<script src="/mts/main/js/realTimeSearch/vendor/jquery-1.9.1.min.js"></script>-->
+
+<!-- JS -->
+<script type="text/javascript" src="/mts/main/js/realTimeSearch/vendor/jquery.hideseek.min.js"></script>
+<script type="text/javascript" src="/mts/main/js/realTimeSearch/vendor/rainbow-custom.min.js"></script>
+<script type="text/javascript" src="/mts/main/js/realTimeSearch/vendor/jquery.anchor.js"></script>
+<script src="/mts/main/js/realTimeSearch/initializers.js"></script>
+<!-- JS ends -->
+</body>
+</html>

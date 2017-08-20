@@ -1,0 +1,141 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE7" />
+<title>万年历-日历查询-9991.com</title>
+</head>
+<style>
+*{margin:0;padding:0;}
+body{background:#eff8ff;font-size:12px}
+.jrcx{margin:10px auto;padding:10px 0;width:940px;text-align:center;background:#fff;border:#b0d3ee 1px solid}
+.content{margin:0 auto;width:940px;height:100%}
+.left,.right{height:100%;border:#b0d3ee 1px solid}
+.left{float:left;padding:0;width:730px;color:#5b5b5b}
+.left div,.left span{display:block;padding:5px;line-height:16px}
+.left div{background:#d5ecfd;border-bottom:#b0d3ee 1px dashed}
+.right{float:right;padding-bottom:5px;width:200px;line-height:20px;}
+.right div{margin:0 auto;width:96%;height:25px;line-height:25px;border-bottom:#b0d3ee 1px solid;text-indent:8px;color:#005aff}
+.right li{float:left;display:block;margin:5px 10px;_margin:5px 8px;width:30px;height:15px;line-height:15px;text-align:center;color:#333;list-style:none;cursor:pointer}
+.right li:hover{color:#005aff;margin:4px 10px 6px;_margin:4px 8px 6px}
+.fred{color:#ff0000}
+.fgreen{color:#008000}
+.fblue{color:#005aff}
+</style>
+<script language="javascript" type="text/javascript" src="lunar.js"></script>
+<script type="text/javascript" language="javascript" src="lmanac.js"></script>
+<body onload="init()">
+<!-- header star --><!-- header end -->
+<!-- content star -->
+<div class="jrcx">
+			<p class="jr"><b>吉日查询：</b>从
+            <select id="s_year" onchange="changeMonthDay(0)">
+                <option value="2008">2008</option>
+                <option value="2009" selected="selected">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+            </select>&nbsp;年&nbsp;
+            <select id="s_month" onchange="changeMonthDay(0)">
+           		 <option value="1">1</option>
+           		 <option value="2">2</option>
+           		 <option value="3">3</option>
+           		 <option value="4">4</option>
+           		 <option value="5">5</option>
+           		 <option value="6">6</option>
+           		 <option value="7">7</option>
+           		 <option value="8">8</option>
+           		 <option value="9">9</option>
+           		 <option value="10">10</option>
+           		 <option value="11">11</option>
+           		 <option value="12">12</option>
+            </select>&nbsp;月&nbsp;
+            <select id="s_day">
+            	 <option value="1">1</option>
+            </select>&nbsp;日
+            至<select id="e_year" onchange="changeMonthDay(1)">
+                <option value="2008">2008</option>
+                <option value="2009" selected="selected">2009</option>
+                <option value="2010">2010</option>
+                <option value="2011">2011</option>
+            </select>&nbsp;年&nbsp;
+            <select id="e_month" onchange="changeMonthDay(1)">
+           		 <option value="1">1</option>
+           		 <option value="2">2</option>
+           		 <option value="3">3</option>
+           		 <option value="4">4</option>
+           		 <option value="5">5</option>
+           		 <option value="6">6</option>
+           		 <option value="7">7</option>
+           		 <option value="8">8</option>
+           		 <option value="9">9</option>
+           		 <option value="10">10</option>
+           		 <option value="11">11</option>
+           		 <option value="12">12</option>
+            </select>&nbsp;月&nbsp;
+            <select id="e_day">
+            	 <option value="1">1</option>
+            </select>&nbsp;日&nbsp;
+            * 查询范围3个月内
+            <input type="radio" name="lmanacType" id="lmanacLuck" checked="checked" />宜
+            <input name="lmanacType" id="lmanacBad" type="radio" />忌&nbsp;&nbsp;
+            <select id="lmanacCond">
+                <option value="全部">全部</option>
+                <option value="嫁娶" selected="selected">嫁娶</option>
+                <option value="祭祀">祭祀</option>
+                <option value="动土">动土</option>
+                <option value="开市">开市</option>
+                <option value="开光">开光</option>
+                <option value="祈福">祈福</option>
+                <option value="求嗣">求嗣</option>
+                <option value="出行">出行</option>
+                <option value="迁徙">迁徙</option>
+                <option value="安床">安床</option>
+                <option value="拆卸">拆卸</option>
+                <option value="修造">修造</option>
+                <option value="安门">安门</option>
+                <option value="挂匾">挂匾</option>
+                <option value="纳财">纳财</option>
+                <option value="扫舍">扫舍</option>
+            </select>&nbsp;<input type="button" id="query" onclick="getLmanac()" style="width:60px" value="查询" /></p>
+  </div>
+<div class="content">
+    <div class="left" id="result"></div>
+    <div class="right"><div>黄历名词解释</div>
+<ul><li title="男娶女嫁，举行结婚大典的吉日">嫁娶</li>
+<li title="指祠堂之祭祀、即拜祭祖先或庙寺的祭拜、神明等事">祭祀</li>
+<li title="举行埋葬等仪式">安葬</li>
+<li title="指外出旅行、观光游览">出行</li>
+<li title="祈求神明降福或设醮还愿之事">祈福</li>
+<li title="建筑时、第一次动起锄头挖土">动土</li>
+<li title="指安置睡床卧铺之意">安床</li>
+<li title="佛像塑成后、供奉上位之事">开光</li>
+<li title="缔结婚姻的仪式、受授聘金">纳采</li>
+<li title="将尸体放入棺材之意">入殓</li>
+<li title="指搬家迁移住所之意">移徙 </li>
+<li title="仅指埋葬用的破土、与一般建筑房屋的“动土”不同，即“破土”属阴宅，“动土”属阳宅也。现今社会上多已滥用属阴宅择日时属阴宅须辨别之。">破土</li>
+<li title="指冲洗清扫宅舍、解除灾厄等事">解除</li>
+<li title="即迁入新宅、所谓“新居落成典礼”也">入宅</li>
+<li title="指阳宅之造与修理">修造</li>
+<li title="种植物“接果”“种田禾”同">栽种</li>
+<li title="“开业”之意，商品行号开张做生意“开幕典礼”“开工”同。包括：(1)年头初开始营业或开工等事(2)新设店铺商行或新厂开幕等事">开市</li>
+<li title="行葬仪时、将棺木移出屋外之事">移柩</li>
+<li title="订婚仪式的一种，俗称小聘(订)">订盟</li>
+<li title="拆掉建筑物">拆卸</li>
+<li title="订立各种契约互相买卖之事">立卷</li>
+<li title="订立各种契约互相买卖之事">交易</li>
+<li title="指向神明祈求后嗣(子孙)之意">求嗣</li>
+<li title="装上建筑物屋顶的梁，同架马">上梁</li>
+<li title="购屋产业、进货、收帐、收租、讨债、贷款、五谷入仓等">纳财</li>
+<li title="建筑时、第一次动起锄头挖土">起基</li>
+<li title="庙宇建醮前需举行的斋戒仪式">斋醮</li>
+<li title="走马上任">赴任</li>
+<li title="男女年满二十岁所举行的成年礼仪式">冠笄</li>
+<li title="放置正门门框">安门</li>
+<li title="修理坟墓">修坟</li>
+<li title="指悬挂招牌或各种匾额">挂匾</li>
+	</ul>
+  <span style="clear:both"></span></div>
+</div>
+</body>
+<script type="text/javascript">if(typeof(changeMonthDay)!="undefined"){changeMonthDay(0);changeMonthDay(1)}</script>
+</html>

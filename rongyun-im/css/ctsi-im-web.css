@@ -1,0 +1,358 @@
+.im-conversation{
+    width: 512px;
+    height: 510px;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow:rgba(0, 0, 0, 0.0980392) 0px 0px 5px 2px;
+    position: absolute;
+    bottom: 0px;
+    right: 270px;
+    display: none;
+}
+.im-conversation-iconUrl{
+    padding-left: 5px;
+    width: 25px;
+    height: 25px;
+    align-items:center;
+}
+.im-content-container{
+    padding: 15px;
+}
+.im-headpic{
+    display: inline-block;
+    width: 35px;
+    margin-right: 10px;
+    vertical-align: top;
+}
+.im-content-container-inner{
+    display: inline-block;
+    width: 87%;
+}
+.im-content-container-name,.im-content-container-message{
+    word-break:break-all;
+    word-wrap:break-word;
+    white-space:pre-wrap;
+}
+.im-content-container-name,.im-content-container-sendTime{
+    color: #9BA0A7;
+    display: inline-block;
+}
+.im-content-container-sendTime{
+    margin-left: 20px;
+}
+#Messages::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 0px;
+}
+
+#Messages::-webkit-scrollbar {
+    width: 9px;
+    background-color: #F5F5F5;
+}
+
+#Messages::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(180,180,180)),
+    color-stop(0.72, rgb(200,200,200)),
+    color-stop(0.86, rgb(220,220,220)));
+}
+/*-----------------创建讨论组-设置弹窗---使用reveal.css*/
+.reveal-modal-bg {
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background: #000;
+    background: rgba(0,0,0,.8);
+    z-index: 1000000000;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+.reveal-modal {
+    top: 0px;
+    left: 0;
+    margin-left: -300px;
+    width: 520px;
+    background: white;
+    position: absolute;
+    z-index: 1000000001;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,.4);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,.4);
+    -box-shadow: 0 0 10px rgba(0,0,0,.4);
+}
+#conversationModal{
+    display: none;
+}
+
+.reveal-modal.small { width: 200px; margin-left: -140px;}
+.reveal-modal.medium { width: 370px; margin-left: 10px;top: 0;height: 508px}
+
+.conversation_modalHeader{
+    position: relative;
+    height: 40px;
+    line-height: 40px;
+    background: #F3F3F3;
+}
+
+.reveal-modal .close-reveal-modal {
+    font-size: 22px;
+    line-height: .5;
+    position: absolute;
+    top: 8px;
+    right: 11px;
+    color: #aaa;
+    text-shadow: 0 -1px 1px rgba(0,0,0,.6);
+    font-weight: bold;
+    cursor: pointer;
+}
+/*-------------------reveal.css ----end------------*/
+/*-----创建讨论组窗口--同事&部门--*/
+.conversation-addressBookList-tab{
+    height: 38px;
+    border-bottom: 1px solid #ECE7EA;
+    padding-left: 10px;
+}
+.conversation-peopleTab{
+    width: 40px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+}
+.conversation-activeTab{
+    border-bottom: 2px solid #2FA3F4;
+    color: #2FA3F4;
+}
+.conversation-orgTab{
+    width: 40px;
+    height: 37px;
+    line-height: 37px;
+    display: inline-block;
+    text-align: center;
+}
+.conversation-addressBookList-items{
+    display: block;
+    width: 100%;
+    height: 210px;
+    overflow-y: auto;
+}
+.conversation-addressBookList-orgs{
+    display: none;
+    width: 100%;
+    height: 359px;
+    background-color: #A5A5A5;
+}
+.conversation-addressBookList-items ul{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+}
+.conversation-addressBookList-items li{
+    height: 35px;
+    padding-left: 10px;
+    padding-top: 7px;
+    border-bottom: 1px solid #ECE7EA;
+    position: relative;
+}
+
+#conversation_addressBookListItems::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 0px;
+}
+
+#conversation_addressBookListItems::-webkit-scrollbar {
+    width: 9px;
+    background-color: #F5F5F5;
+}
+
+#conversation_addressBookListItems::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(180,180,180)),
+    color-stop(0.72, rgb(200,200,200)),
+    color-stop(0.86, rgb(220,220,220)));
+}
+.conversation-searchArea{
+    height: 40px;
+    border-bottom: 1px solid #ECE7EA;
+    margin: 0 auto;
+    background-color: #F3F3F3;
+    position: relative;
+    padding-top:5px;
+}
+.conversation-searchArea input{
+    width: 95%;
+    display: block;
+    height: 30px;
+    border: 1px solid #ECE7EA;
+    border-radius: 20px;
+    outline: none;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.conversation-selected-header{
+    height: 30px;
+    background-color: #F3F3F3;
+    border: 1px solid #ECE7EA;
+    position: relative;
+
+}
+.conversation-selected-header .selected-text{
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 5px;
+}
+.conversation-selected-header .selected-container{
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    right: 10px;
+}
+.conversation-selected-edit{
+    height: 88px;
+    background-color: #F3F3F3;
+    border: 1px solid #ECE7EA;
+}
+.conversation-cancel,.conversation-confirm{
+    display: inline-block;
+    height: 25px;
+    border-radius: 3px;
+    width: 60px;
+    cursor: pointer;
+}
+.conversation-confirm{
+    background-color: #2fa3f4;
+    border:1px solid  #2fa3f4;
+    color:#fff;
+}
+.conversation-cancel{
+    color: #666;
+    background-color: transparent;
+    border: 1px solid #d9d9d9;
+}
+.conversation-buttonList{
+    direction: rtl;
+    margin-right: 7px;
+    margin-top: 7px;
+}
+
+.conversationCheckbox[type="checkbox"] + label:after{
+    content: '\a0';
+    display: inline-block;
+    vertical-align: middle;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: -35px;
+    border-radius: .6em;
+    background: white;
+    text-indent: .2em;
+    line-height: 1em;
+    border: 1px solid #d9d9d9;
+
+}
+/*---选中后的label：after样式---*/
+.conversationCheckbox[type='checkbox']:checked + label:after{
+    content: '\2713';
+    background: #398DEE;
+    color: white;
+    box-shadow: 0px 0px 2px #398dee
+}
+/*---将实际的复选框隐藏--此处用的clip属性(也可以用visibility：hidden)，该属性将绝对定位的元素进行裁切，裁切成rect设置的样式，rect四个参数分别对应的是裁切元素的top\right\bottom\left*/
+.conversationCheckbox[type='checkbox']{
+    position: absolute;
+    clip:rect(0,0,0,0);
+}
+
+body{
+    counter-reset: conversationCounter;
+}
+.conversationCheckbox:checked {
+    counter-increment: conversationCounter;
+}
+#selected_num::after {
+    content: counter(conversationCounter);
+}
+.conversation-selected-edit{
+    padding-top: 5px;
+}
+.conversation-selected-edit .selectedTag{
+    margin-top: 5px;
+    margin-left: 5px;
+    border: 1px solid #eee;
+    background: white;
+    border-radius: 9px;
+    text-align: center;
+}
+.conversation-selected-edit .selectedTag-name{
+    font-size: 0.9em;
+    padding-left: 5px;
+}
+.conversation-selected-edit .selectedTag-close{
+    display: inline-block;
+    padding-left: 5px;
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.recentList-items li{
+    height: 40px;
+    padding-left: 10px;
+    padding-top: 10px;
+    border-bottom: 1px solid #ECE7EA;
+    list-style: none;
+}
+.conversation-moreHistoryText{
+    text-align: center;
+    margin: 4px auto;
+    cursor: pointer;
+    font-size: 0.8em;
+    color: #9BA0A7;
+}
+/*---emoji---*/
+#showemoji-container{
+    height: 210px;
+    overflow-y: auto;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+#showemoji-container::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color: #F5F5F5;
+    border-radius: 0px;
+}
+
+#showemoji-container::-webkit-scrollbar {
+    width: 7px;
+    background-color: #F5F5F5;
+}
+
+#showemoji-container::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    background-image: -webkit-gradient(linear,
+    left bottom,
+    left top,
+    color-stop(0.44, rgb(180,180,180)),
+    color-stop(0.72, rgb(200,200,200)),
+    color-stop(0.86, rgb(220,220,220)));
+}
+#showemoji-container span{
+    cursor: pointer;
+}
+.redPoint{
+    position: absolute;display:none; width:20px;height: 20px; top: -8px;right: -7px;border-radius: 50%;
+    text-align: center;background: red;color: white;
+}
+
+
