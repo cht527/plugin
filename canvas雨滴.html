@@ -1,0 +1,143 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas 雨滴</title>
+
+<style>
+*{
+	margin:0;padding: 0
+}
+/* 
+//本身是图片属性,行内默认对齐方式，样式有3px左右空隙，所以设置成block
+ */
+#canvas{
+	background: #000;
+	display: block;
+}
+</style>
+
+</head>
+<body>
+
+<canvas id="canvas">
+	
+</canvas>
+	
+<script> 
+var can=document.getElementById('canvas');
+var ctx=can.getContext("2d");
+var w=can.width=window.innerWidth;
+var h=can.height=window.innerHeight;
+var count=30;//雨滴数量
+var drops=[];// 存储实例化的雨滴对象
+
+//动画是不断改变位置
+window.onresize=function () {
+	w=can.width=window.innerWidth;
+	h=can.height=window.innerHeight;
+}
+//创建雨滴对象
+function Drop(){
+
+}
+
+//雨滴对象添加属性及方法
+Drop.prototype =  {
+	init:function(){ 
+		//初始化宽高、颜色、坐标
+		this.x=random(0,w);
+		this.y=0;//初始y
+		this.speed=random(4,5);//产生随机y轴位置
+		this.l=random(h*0.8,h*0.9);//距离底部消失的位置
+		this.r=1;//雨滴落地的半径
+		this.vr=1;//雨滴扩散半径变化
+		this.rgba=1;//雨滴透明度
+		this.dropSpeed=0.96;//透明度变化速度
+
+	},
+	//绘制雨滴
+	draw:function(){
+		//雨滴下落到底部位置区域 开始绘制圆形
+		if (this.y>=this.l) {
+			ctx.beginPath();//开始路径
+			ctx.arc(this.x,this.y,this.r,0,2*Math.PI,false);
+			ctx.strokeStyle="rgba(0,255,255,"+this.rgba+")";
+			ctx.stroke();
+
+		}else{
+			ctx.fillStyle=randomColor(this.rgba);//填充方法
+			ctx.fillRect(this.x,this.y,2,10);
+		}
+		
+		//更新坐标
+		this.update();
+	},
+	//更新雨滴坐标
+	update:function(){
+		if (this.y<this.l) {
+			this.y+=this.speed;
+		}else{
+			//绘制圆形
+			if (this.rgba>0.03) {
+				this.r+=this.vr;
+				//改变透明度
+				if (this.r>50) {
+					this.rgba*=this.dropSpeed;
+
+				}
+			}else{
+				//雨滴消失，重新初始化雨滴对象
+				this.init();
+
+			}
+
+		}		
+	}
+};
+
+var drop = new Drop();
+drop.init();
+drop.draw();
+
+//延迟生成每个雨滴对象
+function setDrop(){
+	for (var i =0; i < count; i++) {
+		~~function(i){
+			setTimeout(function(){
+				var drop=new Drop();
+				drop.init();
+				drops.push(drop);
+			},i*200)
+		}(i)
+		
+	}
+}
+setDrop();
+
+//递归循环执行
+function move(){
+	//ctx.clearRect(0,0,w,h);
+	ctx.fillStyle="rgba(0,0,0,.1)";
+	ctx.fillRect(0,0,w,h);//透明矩形
+	for (var i =0,len=drops.length;i<len;i++) {
+		drops[i].draw();
+	}
+	requestAnimationFrame(move);
+}
+move();
+function random(min,max){
+	return Math.random()*(max-min)+min;
+}
+function randomColor(a){
+	var r=~~random(0,255);
+	var g=~~random(0,255);
+	var b=~~random(0,255);
+
+	return "rgba("+r+","+g+","+b+","+a+")";
+}
+
+</script>
+</body>
+</html>
