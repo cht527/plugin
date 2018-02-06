@@ -1,4 +1,12 @@
-* {  
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Jcrop裁剪图片，canvas压缩上传</title>
+
+<style>
+ * {  
         box-sizing: border-box; /* h5 */  
         -moz-box-sizing: border-box; /* Firefox */  
         -webkit-box-sizing: border-box; /* Safari */  
@@ -234,3 +242,163 @@
             top: 150px;  
             right: 150px;  
         }  
+    </style>  
+
+</head>
+<body>
+  
+<div class="uploadPics">  
+   
+    <div class="picTil">上传图片</div>  
+
+    <div class="picCont" style="width:300px;height:300px;margin:20px auto 0;padding:0;" >  
+        <div id=imgfield  style="overflow:hidden;width:100%;height:100%" ></div>  
+    </div>  
+
+    <div class="picFooter">  
+        <input type="file" id="fileimg" name="fileimg" style="display:none" onchange="imgchange()"  />  
+        <span class="btn upload"  onclick="getimg()">上传</span>  
+        <span class="btn confirm" onclick="subform()">确认</span>  
+    </div>  
+  
+</div>  
+
+<dialog id="dialog">
+  图片大于3M 正在压缩中。。。
+</dialog>
+
+<canvas id="myCan" width="200" height="200"></canvas>  
+  
+</body>  
+<script type="text/javascript" src="http://182.92.213.51:1070/html/js/inc/jquery-1.8.3.min.js"></script>  
+<script type="text/javascript" src="http://182.92.213.51:1070/html/js/inc/jquery.Jcrop.js"></script>  
+  
+<script type="text/javascript"> 
+/*
+    1、file 读取 本地文件 （单个)
+    2、处理文件
+        2.1 校验格式、文件大小
+        2.2 读取到的文件编码成Data URL,预览
+    3、裁剪图片，canvas 绘制
+    4、上传
+        base64图片url,转换为blob 
+        FormData 上传
+*/
+	function getimg() {  
+        $("#fileimg").click();  
+    }  
+
+    function imgchange() {  
+  		
+        var localimg = $("#fileimg").get(0).files[0];  
+  
+        if(!localimg){  
+            return;  
+        }  
+  
+        var fileName = localimg.name;  
+        var fileSize = localimg.size;  
+        var fileType=fileName.substring(fileName.lastIndexOf('.'),fileName.length).toLowerCase();  
+        if(fileType!='.gif' && fileType!='.jpeg' && fileType!='.png' && fileType!='.jpg'){  
+            alert("上传失败，请上传git,jpg,png格式的图片");  
+            return;  
+        }  
+        var size=3*1024*1024; 
+
+        if(fileSize>size){  
+             alert("上传失败，图片不能大于3M"); 
+             return;
+        }  
+  
+        var reader=new FileReader();  
+        //readAsDataURL可以将读取到的文件编码成Data URL。Data URL是一项特殊的技术，可以将资料(例如图片)内嵌在网页之中，不用放到外部文件。使用Data URL的好处是，您不需要额外再发出一个HTTP 请求到服务器端取得额外的资料；而缺点便是，网页的大小可能会变大。它适合应用在内嵌小图片，不建议将大图像文件编码成Data URL来使用。您的图像文件不能够超过浏览器限定的大小，否则无法读取图像文件。 
+        reader.readAsDataURL(localimg); 
+   
+        reader.onload= function (e) {  
+            var localimghtml = '<img id="cropbox" src="' +  e.target.result + '" >';  
+            $("#imgfield").html(localimghtml);  
+            initJcrop();  
+        };  
+  
+    }
+    function initJcrop(){  
+        $('#cropbox').Jcrop({  
+            onSelect: updateCoords,  
+            aspectRatio: 1,  
+            boxWidth: 300,  
+            boxHeight: 300  
+        }, function () {  
+  
+            var bb = this.getBounds();  //图片实际尺寸 
+            var bWidth= Number(bb[0]) / 2;  
+            var bHeight= Number(bb[1]) / 2;  
+  
+            this.setSelect([0, 0, bWidth,bHeight]);  
+  
+  
+            var ss = this.getWidgetSize();  //图片显示尺寸 
+            var aheight = (300 - Number(ss[1])) / 2 + "px";  
+            $(".jcrop-holder").css("margin-top", aheight);  
+  
+        });  
+    }     
+  
+     function updateCoords(c){  
+        
+        var img=document.getElementById("cropbox");  
+        var ctx=document.getElementById("myCan").getContext("2d");  
+  
+        //img,开始剪切的x,Y坐标宽高，放置图像的x,y坐标宽高。  
+        ctx.drawImage(img,c.x,c.y, c.w, c.h,0,0,200,200);  
+    }  
+  
+  
+  
+    //**dataURL to blob**  
+    function dataURLtoBlob(dataurl) { 
+        console.log(dataurl); 
+        var arr = dataurl.split(','), mime = arr[0].match(/:(.*?);/)[1],  
+                bstr = atob(arr[1]), n = bstr.length, u8arr = new Uint8Array(n);  
+        while (n--) {  
+            u8arr[n] = bstr.charCodeAt(n);  
+        }  
+        return new Blob([u8arr], { type: mime });  
+    } 
+
+  /*------上传--------*/
+    function subform() {  
+  
+        if($("#imgfield").html()){  
+            //获取裁剪完后的base64图片url,转换为blob  
+            var data=document.getElementById("myCan").toDataURL();  
+            var formData=new FormData();  
+            formData.append("imageName",dataURLtoBlob(data));  
+  
+  
+            var httprequest=new XMLHttpRequest();  
+            var apiurl=""; //上传图片的api接口，自行填写  
+            httprequest.open('POST',apiurl,true);  
+            httprequest.send(formData);  
+            httprequest.onreadystatechange= function () {  
+                if(httprequest.status==200 && httprequest.readyState==4){  
+  
+                    var json=JSON.parse(httprequest.responseText);  
+                    console.log(json)  
+                }else{  
+                    alert("上传图片失败！api错误")  
+                }  
+            };  
+  
+  
+        }else{  
+  
+            alert("请选择图片!")  
+        }  
+  
+  
+    }  
+  
+
+</script>
+</body>
+</html>
