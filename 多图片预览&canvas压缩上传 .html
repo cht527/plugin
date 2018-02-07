@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>多图片预览&canvas压缩上传 </title>
+
+<style>
+
+</style>  
+
+</head>
+<body>
+<div class="container">
+ <label>请选择图像文件：</label>
+ <input type="file" id="file_input" multiple />
+</div>
+
+<div>预览：</div>
+<div class="preview-container" id="previewContainer">
+    
+</div>
+
+
+<dialog id="dialog">
+  图片大于3M 正在压缩中。。。
+</dialog>
+
+  
+</body>  
+<script type="text/javascript" src="http://182.92.213.51:1070/html/js/inc/jquery-1.8.3.min.js"></script>  
+  
+<script type="text/javascript"> 
+/*
+    1、file 读取 本地文件 
+    2、处理文件
+        2.1 校验格式、文件大小
+        2.2 读取到的文件编码成Data URL,预览
+    3、canvas 绘制
+    4、上传
+        base64图片url,转换为blob 
+        FormData 上传
+*/
+	var inputFile=document.getElementById("file_input"); 
+    var previewContainer=document.getElementById("previewContainer");
+    var origin_i=0;// 初始标记
+    var size=3*1024*1024;
+    inputFile.onchange=function() {  
+  		
+        var localimgList = this.files;  
+        
+        if(!localimgList){  
+            return;  
+        }  
+        
+        checkImg(localimgList);
+  
+    }
+    
+    function checkImg(imgList){
+       
+        var len=imgList.length;
+        
+
+        for (var i = origin_i; i < len+origin_i; i++) {
+            var curFile=imgList[i-origin_i], //当前图片
+                fileName = curFile.name, //图片名字
+                fileSize = curFile.size, //图片大小
+                fileType=fileName.substring(fileName.lastIndexOf('.'),fileName.length).toLowerCase();//图片类型 
+            
+            if(fileType!='.gif' && fileType!='.jpeg' && fileType!='.png' && fileType!='.jpg'){  
+                alert(fileName+"格式不正确，请上传gif,jpg,png格式的图片");  
+                return;  
+            }  
+             
+            //---限制大小
+            /*if(fileSize>size){  
+                alert(fileName+"大小不能大于3M"); 
+                return;
+            } */ 
+            //---不判断大小，预览
+            preview(curFile,i);
+
+
+        }
+        origin_i+=len;
+
+    }
+
+    //------预览---------
+    function preview(curFile,index){
+        var reader=new FileReader(), img = new Image();
+
+        /*
+        readAsDataURL可以将读取到的文件编码成Data URL。Data URL是一项特殊的技术，可以将资料(例如图片)内嵌在网页之中，不用放到外部文件。使用Data URL的好处是，您不需要额外再发出一个HTTP 请求到服务器端取得额外的资料；而缺点便是，网页的大小可能会变大。它适合应用在内嵌小图片，不建议将大图像文件编码成Data URL来使用。您的图像文件不能够超过浏览器限定的大小，否则无法读取图像文件。
+        */ 
+        reader.readAsDataURL(curFile); 
+
+        reader.onload= function (e) {  
+            //var localimghtml = '<img id=cropbox'+index+' src='+ e.target.result + ' >';  
+           
+            //previewContainer.innerHTML+=localimghtml; 
+             var image = new Image();  
+             image.src = e.target.result;  
+             image.id='cropbox'+index;
+             image.onload = function(){  //创建一个image对象，给canvas绘制使用   
+                var canvas= document.createElement('canvas');
+                var context= canvas.getContext("2d"); 
+                var originWidth = this.width;
+                var originHeight = this.height;
+                // 最大尺寸限制
+                var maxWidth = 400, maxHeight = 400;
+                // 目标尺寸
+                var targetWidth = originWidth, targetHeight = originHeight;
+                // 图片尺寸超过400x400的限制
+                if (originWidth > maxWidth || originHeight > maxHeight) {
+                    if (originWidth / originHeight > maxWidth / maxHeight) {
+                        // 更宽，按照宽度限定尺寸
+                        targetWidth = maxWidth;
+                        targetHeight = Math.round(maxWidth * (originHeight / originWidth));
+                    } else {
+                        // 更高，按照高度限定尺寸
+                        targetHeight = maxHeight;
+                        targetWidth = Math.round(maxHeight * (originWidth / originHeight));
+                    }
+                }
+                    
+                // canvas对图片进行缩放
+                canvas.width = targetWidth;
+                canvas.height = targetHeight;
+                previewContainer.appendChild(canvas);
+                // 清除画布
+                context.clearRect(0, 0, targetWidth, targetHeight);
+                // 图片压缩
+                context.drawImage(image, 0, 0, targetWidth, targetHeight);
+                // canvas转为blob并上传
+                canvas.toBlob(function (blob) {
+                    // 图片ajax上传
+                    var xhr = new XMLHttpRequest();
+                    // 文件上传成功
+                    xhr.onreadystatechange = function() {
+                        if (xhr.status == 200) {
+                            // xhr.responseText就是返回的数据
+                        }
+                    };
+                    // 开始上传
+                    xhr.open("POST", 'upload.php', true);
+                    xhr.send(blob);    
+                }, file.type || 'image/png');
+             }
+        };   
+
+       
+    }  
+
+
+  /*------上传--------*/
+    function subform() {  
+  
+        if($("#imgfield").html()){  
+            //获取裁剪完后的base64图片url,转换为blob  
+            var data=document.getElementById("myCan").toDataURL();  
+            var formData=new FormData();  
+            formData.append("imageName",dataURLtoBlob(data));  
+  
+  
+            var httprequest=new XMLHttpRequest();  
+            var apiurl=""; //上传图片的api接口，自行填写  
+            httprequest.open('POST',apiurl,true);  
+            httprequest.send(formData);  
+            httprequest.onreadystatechange= function () {  
+                if(httprequest.status==200 && httprequest.readyState==4){  
+  
+                    var json=JSON.parse(httprequest.responseText);  
+                    console.log(json)  
+                }else{  
+                    alert("上传图片失败！api错误")  
+                }  
+            };  
+  
+  
+        }else{  
+  
+            alert("请选择图片!")  
+        }  
+  
+  
+    }  
+  
+
+</script>
+</body>
+</html>
